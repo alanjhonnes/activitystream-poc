@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% for activity in timeline.activities %}
+        {% if activity.type == 'QuoteSent' %}
+        <div>
+            <h2>{{ activity.actor.name }} enviou uma proposta para a cotação #{{ activity.target.id }}</h2>
+            <p><strong>{{ activity.published|date("d/m/Y") }}</strong> {{ activity.type }}</p>
+        </div>
+        {% else %}
+            <div>
+                <h2>{{ activity.actor.name }} abriu a cotação #{{ activity.object.id }} em nome de {{ activity.target.name }}</h2>
+                <p><strong>{{ activity.published|date("d/m/Y") }}</strong> {{ activity.type }}</p>
+            </div>
+
+        {% endif %}
+    {% endfor %}
+{% endblock %}

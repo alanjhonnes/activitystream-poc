@@ -14,19 +14,23 @@ use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\InheritanceType;
-use Doctrine\ORM\Mapping\MappedSuperclass;
+use Doctrine\ORM\Mapping\ManyToOne;
 
 /**
  * Class AbstractActivityItem
  * @package AppBundle\Entity
  * @Entity()
- * @InheritanceType("SINGLE_TABLE")
- * @DiscriminatorColumn(name="verb", type="string")
- * @DiscriminatorMap({"QuotationOpen" = "AppBundle\Entity\QuotationOpenActivityItem", "QuoteSent" = "AppBundle\Entity\QuoteSentActivityItem"})
+ * @InheritanceType(value="SINGLE_TABLE")
+ * @DiscriminatorColumn(type="string", name="dtype")
+ * @DiscriminatorMap(value={
+ * "QuotationOpen" = "QuotationOpenActivityItem",
+ * "QuoteSent" = "QuoteSentActivityItem"
+ * })
  *
  */
-class AbstractActivityItem
+class ActivityItem
 {
+
 
     /**
      * @var
@@ -42,9 +46,32 @@ class AbstractActivityItem
      */
     protected $published;
 
+    /**
+     * @var
+     * @Column(type="string")
+     */
+    protected $verb;
+
+    /**
+     * @var
+     */
     protected $actor;
+
+    /**
+     * @var
+     */
     protected $object;
+
+    /**
+     * @var
+     */
     protected $target;
+
+    /**
+     * @var
+     * @Column(type="string")
+     */
+    protected $type;
 
     function __construct()
     {
@@ -66,7 +93,7 @@ class AbstractActivityItem
      * Set published
      *
      * @param \DateTime $published
-     * @return AbstractActivityItem
+     * @return ActivityItem
      */
     public function setPublished($published)
     {
@@ -83,5 +110,51 @@ class AbstractActivityItem
     public function getPublished()
     {
         return $this->published;
+    }
+
+    /**
+     * Set verb
+     *
+     * @param string $verb
+     * @return ActivityItem
+     */
+    public function setVerb($verb)
+    {
+        $this->verb = $verb;
+
+        return $this;
+    }
+
+    /**
+     * Get verb
+     *
+     * @return string 
+     */
+    public function getVerb()
+    {
+        return $this->verb;
+    }
+
+    /**
+     * Set type
+     *
+     * @param string $type
+     * @return ActivityItem
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 }

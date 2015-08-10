@@ -19,7 +19,7 @@ use Doctrine\ORM\Mapping\ManyToOne;
  * @package AppBundle\Entity
  * @Entity()
  */
-class QuoteSentActivityItem extends AbstractActivityItem
+class QuoteSentActivityItem extends ActivityItem
 {
 
     /**
@@ -40,28 +40,11 @@ class QuoteSentActivityItem extends AbstractActivityItem
      */
     protected $target;
 
-
-    /**
-     * Set published
-     *
-     * @param \DateTime $published
-     * @return QuoteSentActivityItem
-     */
-    public function setPublished($published)
+    function __construct()
     {
-        $this->published = $published;
-
-        return $this;
-    }
-
-    /**
-     * Get published
-     *
-     * @return \DateTime 
-     */
-    public function getPublished()
-    {
-        return $this->published;
+        parent::__construct();
+        $this->verb = 'sent';
+        $this->type = 'QuoteSent';
     }
 
     /**

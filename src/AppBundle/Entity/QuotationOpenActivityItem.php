@@ -19,7 +19,7 @@ use Doctrine\ORM\Mapping\ManyToOne;
  * @package AppBundle\Entity
  * @Entity()
  */
-class QuotationOpenActivityItem extends AbstractActivityItem
+class QuotationOpenActivityItem extends ActivityItem
 {
 
     /**
@@ -40,29 +40,13 @@ class QuotationOpenActivityItem extends AbstractActivityItem
      */
     protected $target;
 
-
-    /**
-     * Set published
-     *
-     * @param \DateTime $published
-     * @return QuotationOpenActivityItem
-     */
-    public function setPublished($published)
+    function __construct()
     {
-        $this->published = $published;
-
-        return $this;
+        parent::__construct();
+        $this->verb = 'open';
+        $this->type = 'QuotationOpen';
     }
 
-    /**
-     * Get published
-     *
-     * @return \DateTime 
-     */
-    public function getPublished()
-    {
-        return $this->published;
-    }
 
     /**
      * Set actor
@@ -132,4 +116,5 @@ class QuotationOpenActivityItem extends AbstractActivityItem
     {
         return $this->target;
     }
+
 }
